@@ -1,7 +1,7 @@
-<script setup>
-import {} from 'vue'
-</script>
+<script setup></script>
 
-<template>Hello World</template>
+<template>
+  <router-view></router-view>
+</template>
 
 <style scoped lang="scss"></style>
