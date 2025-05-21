@@ -1,0 +1,2 @@
+# 校验代码格式是否符合规范
+pnpm exec lint-staged
