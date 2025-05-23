@@ -20,11 +20,15 @@ request.interceptors.request.use(
 // 添加响应拦截器
 request.interceptors.response.use(
   (response) => {
-    const { data } = response.data
+    const { data, success, message } = response.data
 
-    // 2xx 范围内的状态码都会触发该函数。
-    // 对响应数据做点什么
-    return data
+    // 根据后端返回的状态码进行处理
+    if (success) {
+      return data
+    }
+
+    // 处理业务失败
+    return Promise.reject(new Error(message))
   },
   (error) => {
     // 超出 2xx 范围的状态码都会触发该函数。
