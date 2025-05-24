@@ -1,6 +1,8 @@
 import { computed } from 'vue'
 import { PC_DEVICE_WIDTH, MAX_FONT_SIZE } from '@/constants'
 import { useWindowSize } from '@vueuse/core'
+
+// https://vueuse.org/core/useWindowSize
 const { width } = useWindowSize()
 
 /**

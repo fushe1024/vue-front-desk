@@ -4,13 +4,15 @@ import mobile from './mobile/index.vue'
 import { ref } from 'vue'
 import { isMobileTerminal } from '@/utils/flexible'
 import { getCategoryAPI } from '@/api/category'
+import { ALL_CATEGORY_ITEM } from '@/constants'
 
 // 获取分类数据
 const categorys = ref([])
 const getData = async () => {
   const res = await getCategoryAPI()
   categorys.value = res.categorys
-  console.log(res)
+  categorys.value.unshift(ALL_CATEGORY_ITEM)
+  console.log(categorys.value)
 }
 getData()
 </script>
