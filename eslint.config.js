@@ -27,7 +27,9 @@ export default defineConfig([
   // 自动定义规则
   {
     rules: {
-      'vue/multi-word-component-names': 'off'
+      'vue/multi-word-component-names': 'off', // 关闭组件名称检查
+      'vue/valid-v-model': 'off', // 关闭v-model检查
+      'vue/valid-v-slot': 'off' // 关闭v-slot检查
     }
   }
 ])

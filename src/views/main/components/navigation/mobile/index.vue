@@ -66,7 +66,7 @@ const isPopup = ref(false)
     >
       <!-- 汉堡按钮 -->
       <li
-        class="fixed top-0 right-[-1px] z-20 h-4 px-1 flex items-center shadow-[-10px_0_10px_#fff] bg-white"
+        class="fixed top-0 right-[-1px] z-20 h-4 px-1 flex items-center shadow-l-white bg-white"
         @click="isPopup = true"
       >
         <svg-Icon class="w-1.5 h-1.5" iconClass="hamburger"></svg-Icon>

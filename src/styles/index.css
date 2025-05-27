@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 
+/* https://tailwindcss.com/docs/theme */
 @theme {
+  /* 覆盖主题 */
   --text-xs: 0.25rem;
   --text-xs--line-height: 0.35rem;
   --text-sm: 0.35rem;
@@ -11,4 +13,15 @@
   --text-lg--line-height: 0.65rem;
   --text-xl: 0.65rem;
   --text-xl--line-height: 0.75rem;
+
+  /* 自定义 shadow */
+  --shadow-l-white: -10px 0 10px white;
+
+  /* 自定义 height */
+  --height-header: 72px;
+  --height-main: calc(100vh - 72px);
+
+  /* 自定义 color */
+  --color-main: #f44c58;
+  --color-hover-main: #f32836;
 }
