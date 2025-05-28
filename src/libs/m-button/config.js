@@ -24,3 +24,6 @@ export const sizeEnum = {
     icon: 'w-1.5 h-1.5'
   }
 }
+
+// 可触发的事件
+export const EMIT_CLICK = 'click'

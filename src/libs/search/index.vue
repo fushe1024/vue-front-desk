@@ -1,20 +1,78 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { onClickOutside } from '@vueuse/core'
+import {
+  EMIT_BLUR,
+  EMIT_CLEAR,
+  EMIT_FOCUS,
+  EMIT_INPUT,
+  EMIT_SEARCH
+} from './config'
 
-// 输入框的值
+// 输入框的值 - 双向绑定
 const inputValue = defineModel('modelValue', { required: true })
 
-// 点击清空按钮时触发
+// emit 事件
+const emit = defineEmits([
+  EMIT_BLUR,
+  EMIT_CLEAR,
+  EMIT_FOCUS,
+  EMIT_INPUT,
+  EMIT_SEARCH
+])
+
+/**
+ * 监听输入行为
+ */
+watch(inputValue, (value) => {
+  console.log('输入事件', value) // test
+  emit(EMIT_INPUT, value)
+})
+
+/**
+ * 清空文本
+ */
 const onClearClick = () => {
   inputValue.value = ''
+  emit(EMIT_CLEAR)
 }
 
-// 输入框是否聚焦
+/**
+ * 搜索
+ */
+const onSearch = () => {
+  console.log('搜索', inputValue.value) // test
+  emit(EMIT_SEARCH, inputValue.value)
+}
+
+/**
+ * 监听焦点
+ */
 const isFocus = ref(false)
+const onFocus = () => {
+  isFocus.value = true
+  emit(EMIT_FOCUS)
+}
+
+/**
+ * 点击搜素区域外隐藏 dropdown
+ */
+const searchRef = ref(null)
+onClickOutside(searchRef, () => {
+  if (isFocus.value) isFocus.value = false
+})
+
+/**
+ * 失去焦点
+ */
+const onBlur = () => {
+  emit(EMIT_BLUR)
+}
 </script>
 
 <template>
   <div
+    ref="searchRef"
     class="group relative p-0.5 rounded-xl border-white duration-500 hover:bg-red-100/40"
   >
     <!-- 搜索图标 -->
@@ -29,6 +87,9 @@ const isFocus = ref(false)
       type="text"
       placeholder="搜索"
       v-model="inputValue"
+      @focus="onFocus"
+      @blur="onBlur"
+      @keyup.enter="onSearch"
     />
     <!-- 删除按钮 -->
     <svg-Icon
@@ -46,7 +107,7 @@ const isFocus = ref(false)
       class="absolute translate-y-[-50%] top-[50%] right-1 rounded-xl duration-500 opacity-0 group-hover:opacity-100"
       icon="search"
       iconColor="#ffffff"
-      @click="on"
+      @click="onSearch"
     ></m-button>
     <!-- 下拉区域 -->
     <transition name="slide">

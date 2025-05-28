@@ -8,7 +8,7 @@ const goHome = () => {
 </script>
 
 <template>
-  <div class="logo-box">
+  <div>
     <img
       @click="goHome"
       class="h-4 cursor-pointer"

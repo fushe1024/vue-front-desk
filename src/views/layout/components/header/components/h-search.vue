@@ -10,7 +10,13 @@ const inputValue = ref('')
     <!-- 通用组件 -->
     <search v-model="inputValue">
       <template #dropdown>
-        <div>下拉菜单</div>
+        <div>
+          <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+          </ul>
+        </div>
       </template>
     </search>
   </div>

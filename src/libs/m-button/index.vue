@@ -1,5 +1,5 @@
 <script setup>
-import { typeEnum, sizeEnum } from './config'
+import { typeEnum, sizeEnum, EMIT_CLICK } from './config'
 import { computed } from 'vue'
 
 /**
@@ -67,7 +67,7 @@ const props = defineProps({
 /**
  * 按钮事件
  */
-const emit = defineEmits(['click'])
+const emit = defineEmits([EMIT_CLICK])
 
 /**
  * 按钮尺寸
@@ -81,7 +81,10 @@ const sizeKey = computed(() => {
  * 按钮点击事件
  */
 const onBtnClick = () => {
-  emit('click')
+  if (props.loading) {
+    return
+  }
+  emit(EMIT_CLICK)
 }
 </script>
 

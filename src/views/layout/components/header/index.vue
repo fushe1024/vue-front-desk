@@ -1,8 +1,8 @@
 <script setup>
-import logoVue from './logo.vue'
-import searchVue from './search.vue'
-import themeVue from './theme.vue'
-import userVue from './user.vue'
+import logoVue from './components/h-logo.vue'
+import searchVue from './components/h-search.vue'
+import themeVue from './components/h-theme.vue'
+import userVue from './components/h-user.vue'
 </script>
 
 <template>
