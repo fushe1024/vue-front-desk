@@ -8,7 +8,7 @@ const inputValue = ref('')
 <template>
   <div class="w-full">
     <!-- 通用组件 -->
-    <search v-model="inputValue">
+    <m-search v-model="inputValue">
       <template #dropdown>
         <div>
           <ul>
@@ -18,7 +18,7 @@ const inputValue = ref('')
           </ul>
         </div>
       </template>
-    </search>
+    </m-search>
   </div>
 </template>
 

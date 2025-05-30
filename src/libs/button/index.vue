@@ -99,21 +99,21 @@ const onBtnClick = () => {
     ]"
   >
     <!-- loadiing 部分 -->
-    <svg-Icon
+    <m-svg-icon
       v-if="loading"
       iconClass="loading"
       class="w-2 h-2 animate-spin mr-1"
-    ></svg-Icon>
+    ></m-svg-icon>
 
     <!-- icon 按钮 -->
-    <svg-Icon
+    <m-svg-icon
       v-if="icon"
-      :iconClass="icon"
+      :icon-class="icon"
       class="m-auto"
       :class="sizeEnum[sizeKey].icon"
       :color="iconColor"
-      :fillClass="iconClass"
-    ></svg-Icon>
+      :fill-class="iconClass"
+    ></m-svg-icon>
     <!-- 文字 按钮 -->
     <slot v-else></slot>
   </button>

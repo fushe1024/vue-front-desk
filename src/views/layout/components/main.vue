@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="bg-amber-700">
+  <div class="">
     <h1>main</h1>
   </div>
 </template>

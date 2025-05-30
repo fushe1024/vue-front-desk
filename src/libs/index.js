@@ -11,7 +11,7 @@ export default {
       const name = path.split('/')[1]
 
       // 通过 defineAsyncComponent 异步组件指定路径的组件
-      app.component(name, defineAsyncComponent(modules[path]))
+      app.component(`m-${name}`, defineAsyncComponent(modules[path]))
     }
   }
 }
