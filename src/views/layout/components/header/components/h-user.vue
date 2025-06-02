@@ -56,7 +56,8 @@ const onMenuClick = (path) => {
         ></m-svg-icon>
         <!-- vip 标记 -->
         <m-svg-icon
-          class="w-1.5 h-1.5 absolute right-[15px] bottom-[2px]"
+          v-if="true"
+          class="w-1.5 h-1.5 absolute right-[20px] bottom-[5px]"
           icon-class="vip"
         ></m-svg-icon>
       </div>

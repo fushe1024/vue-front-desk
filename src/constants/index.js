@@ -19,3 +19,24 @@ export const THEME = {
 
 // 气泡延迟关闭时间
 export const DELAY_TIME = 100
+
+// category 缓存 key
+export const CATEGORY_KEY = 'category'
+
+// category 初始数据
+export const CATEGORY_DATA = [
+  ALL_CATEGORY_ITEM,
+  { id: 'web_app_icon', name: 'UI/UX' },
+  { id: 'design', name: '平面' },
+  { id: 'illustration', name: '插画/漫画' },
+  { id: 'photography', name: '摄影' },
+  { id: 'games', name: '游戏' },
+  { id: 'anime', name: '动漫' },
+  {
+    id: 'industrial_design',
+    name: '工业设计'
+  },
+  { id: 'architecture', name: '建筑设计' },
+  { id: 'art', name: '人文艺术' },
+  { id: 'home', name: '家居/家装' }
+]

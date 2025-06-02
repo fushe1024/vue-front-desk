@@ -2,8 +2,14 @@
 export default [
   {
     path: '/',
-    name: 'home',
+    name: 'main',
     component: () => import('@/views/layout/index.vue'),
-    children: []
+    children: [
+      {
+        path: '',
+        name: 'home',
+        component: () => import('@/views/main/index.vue')
+      }
+    ]
   }
 ]

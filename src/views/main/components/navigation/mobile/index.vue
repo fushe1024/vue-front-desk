@@ -2,13 +2,9 @@
 import Menu from '../../menu/index.vue'
 import { ref, onBeforeUpdate, watch } from 'vue'
 import { useScroll } from '@vueuse/core'
-
-defineProps({
-  data: {
-    type: Array,
-    required: true
-  }
-})
+import { storeToRefs } from 'pinia'
+import { useCategoryStore } from '@/stores/modules/category'
+const { categorys } = storeToRefs(useCategoryStore())
 
 // 滑块样式
 const sliderStyle = ref({
@@ -80,7 +76,7 @@ const isPopup = ref(false)
 
       <!-- itemx 项 -->
       <li
-        v-for="(item, index) in data"
+        v-for="(item, index) in categorys"
         :key="item.id"
         class="shrink-0 px-1.5 py-0.5 z-10 duration-200 last:mr-4"
         :class="{ 'text-zinc-100': currentIndex === index }"
@@ -93,7 +89,7 @@ const isPopup = ref(false)
 
     <!-- popup -->
     <m-popup v-model="isPopup">
-      <Menu :categorydata="data" @onItemClick="handleClick" />
+      <Menu @onItemClick="handleClick" />
     </m-popup>
   </div>
 </template>

@@ -1,10 +1,7 @@
 <script setup>
-defineProps({
-  categorydata: {
-    type: Array,
-    required: true
-  }
-})
+import { storeToRefs } from 'pinia'
+import { useCategoryStore } from '@/stores/modules/category'
+const { categorys } = storeToRefs(useCategoryStore())
 
 defineEmits(['onItemClick'])
 </script>
@@ -18,7 +15,7 @@ defineEmits(['onItemClick'])
       <ul class="overflow-y-auto">
         <!-- itemx 项 -->
         <li
-          v-for="(item, index) in categorydata"
+          v-for="(item, index) in categorys"
           :key="item.id"
           class="text-lg text-zinc-900 px-1 py-1.5 duration-100 active:bg-zinc-100 after:dark:bg-zinc-900"
           @click="$emit('onItemClick', index)"
