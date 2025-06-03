@@ -112,7 +112,7 @@ watch(isShow, (value) => {
       <div
         ref="popoverRef"
         v-if="isShow"
-        class="absolute p-1 z-20 bg-white border border-zinc-200/60 rounded-md"
+        class="absolute p-1 z-20 bg-white border border-zinc-200/60 rounded-md dark:bg-zinc-900 dark:border-zinc-700"
       >
         <!-- 默认插槽 -->
         <slot></slot>

@@ -26,13 +26,13 @@ const handleClick = (index) => {
     >
       <!-- 展示箭头 -->
       <div
-        class="absolute bottom-1 right-1 z-20 rounded cursor-pointer duration-200 hover:bg-zinc-200"
+        class="absolute bottom-1 right-1 z-20 rounded cursor-pointer duration-200 hover:bg-zinc-200 dark:hover:bg-zinc-900"
         @click="triggerState"
       >
         <m-svg-icon
           :icon-class="isOpenCategory ? 'fold' : 'unfold'"
           class="w-1.5 h-1.5"
-          fill-class="fill-zinc-900"
+          fill-class="fill-zinc-900 dark:fill-zinc-300"
         ></m-svg-icon>
       </div>
 
@@ -40,8 +40,11 @@ const handleClick = (index) => {
       <li
         v-for="(item, index) in categorys"
         :key="item.id"
-        class="shrink-0 px-1.5 py-0 z-10 duration-200 last:mr-4 text-zinc-900 text-base font-bold h-4 leading-4 cursor-pointer hover:bg-zinc-200 rounded mr-1 mb-1"
-        :class="{ 'bg-zinc-200': currentIndex === index }"
+        class="shrink-0 px-1.5 py-0 z-10 duration-200 last:mr-4 text-zinc-900 text-base font-bold h-4 leading-4 cursor-pointer hover:bg-zinc-200 rounded mr-1 mb-1 dark:text-zinc-500 dark:hover:text-zinc-300 dark:hover:bg-zinc-900"
+        :class="{
+          'bg-zinc-200 dark:text-zinc-300 data:bg-zinc-900':
+            currentIndex === index
+        }"
         @click="handleClick(index)"
       >
         {{ item.name }}

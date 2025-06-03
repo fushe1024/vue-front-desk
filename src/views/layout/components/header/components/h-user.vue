@@ -40,7 +40,7 @@ const onMenuClick = (path) => {
   <m-popover v-if="true">
     <template #reference>
       <div
-        class="flex items-center p-1 cursor-pointer duration-200 outline-none hover:bg-zinc-100 rounded-sm"
+        class="flex items-center p-1 cursor-pointer duration-200 outline-none hover:bg-zinc-100 rounded-sm dark:hover:bg-zinc-900"
       >
         <!-- 头像 -->
         <img
@@ -52,7 +52,7 @@ const onMenuClick = (path) => {
         <m-svg-icon
           class="w-1 h-1"
           icon-class="down-arrow"
-          fill-class="fill-zinc-900"
+          fill-class="fill-zinc-900 dark:fill-zinc-300"
         ></m-svg-icon>
         <!-- vip 标记 -->
         <m-svg-icon
@@ -62,21 +62,24 @@ const onMenuClick = (path) => {
         ></m-svg-icon>
       </div>
     </template>
+
     <!-- 气泡部分 -->
     <div class="w-[140px] overflow-hidden">
       <!--  -->
       <div
         v-for="item in menuData"
         :key="item.icon"
-        class="flex items-center rounded cursor-pointer p-1 hover:bg-zinc-100/60"
+        class="flex items-center rounded cursor-pointer p-1 hover:bg-zinc-100/60 dark:hover:bg-zinc-800"
         @click="onMenuClick(item.path)"
       >
         <m-svg-icon
           :icon-class="item.icon"
           class="w-1.5 h-1.5 mr-1"
-          fill-class="fill-zinc-900"
+          fill-class="fill-zinc-900 dark:fill-zinc-300"
         ></m-svg-icon>
-        <span class="text-sm text-zinc-800">{{ item.title }}</span>
+        <span class="text-sm text-zinc-800 dark:text-zinc-300">
+          {{ item.title }}
+        </span>
       </div>
     </div>
   </m-popover>

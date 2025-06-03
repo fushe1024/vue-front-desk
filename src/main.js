@@ -4,15 +4,15 @@ import App from './App.vue'
 import router from './router'
 import pinia from './stores'
 import { useREM } from './utils/flexible'
+import { initTheme } from './utils/theme'
 import libs from '@/libs'
 import 'virtual:svg-icons-register'
 
-useREM() // 动态指定rem基准值
-
 const app = createApp(App)
 
-app.use(libs)
+app.use(pinia).use(router).use(libs)
 
-app.use(router).use(pinia)
+useREM() // 动态指定rem基准值
+initTheme() // 初始化主题
 
 app.mount('#app')
