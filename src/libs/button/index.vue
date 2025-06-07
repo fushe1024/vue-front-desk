@@ -71,9 +71,11 @@ const emit = defineEmits([EMIT_CLICK])
 
 /**
  * 按钮尺寸
+ * @description 如果是 icon 按钮，就返回 icon-xxx 的值，否则返回 xxx 的值
+ * icon-small | small
+ * @returns {string} 按钮尺寸
  */
 const sizeKey = computed(() => {
-  // 如果是 icon 按钮，就返回 icon-xxx 的值，否则返回 xxx 的值
   return props.icon ? `icon-${props.size}` : props.size
 })
 
@@ -91,7 +93,7 @@ const onBtnClick = () => {
 <template>
   <button
     @click.stop="onBtnClick"
-    class="text-sm text-center duration-150 flex justify-center items-center"
+    class="text-sm text-center duration-150 flex justify-center items-center rounded"
     :class="[
       typeEnum[type],
       sizeEnum[sizeKey].button,

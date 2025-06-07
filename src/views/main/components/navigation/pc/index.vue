@@ -19,7 +19,7 @@ const handleClick = (index) => {
 </script>
 
 <template>
-  <div class="sticky top-0 left-0 w-full z-10 bg-white">
+  <div class="sticky top-0 left-0 w-full z-10 bg-white dark:bg-zinc-800">
     <ul
       class="w-[800px] relative flex justify-center flex-wrap overflow-x-auto px-[10px] py-1 text-xs text-zinc-600 duration-300 overflow-hidden mx-auto"
       :class="[isOpenCategory ? 'h-[205px]' : 'h-[50px]']"
@@ -42,7 +42,7 @@ const handleClick = (index) => {
         :key="item.id"
         class="shrink-0 px-1.5 py-0 z-10 duration-200 last:mr-4 text-zinc-900 text-base font-bold h-4 leading-4 cursor-pointer hover:bg-zinc-200 rounded mr-1 mb-1 dark:text-zinc-500 dark:hover:text-zinc-300 dark:hover:bg-zinc-900"
         :class="{
-          'bg-zinc-200 dark:text-zinc-300 data:bg-zinc-900':
+          'bg-zinc-200 dark:text-zinc-300 dark:bg-zinc-900':
             currentIndex === index
         }"
         @click="handleClick(index)"
