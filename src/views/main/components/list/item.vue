@@ -1,4 +1,6 @@
 <script setup>
+import { randomRGB } from '@/utils/color'
+
 defineProps({
   data: {
     type: Object,
@@ -14,9 +16,13 @@ defineProps({
   <!-- item 项 -->
   <div class="bg-white dark:bg-zinc-900 xl:dark:bg-zinc-800 rounded pb-1">
     <!-- content 部分 -->
-    <div class="relative w-full rounded cursor-zoom-in group">
+    <div
+      class="relative w-full rounded cursor-zoom-in group"
+      :style="{ backgroundColor: randomRGB() }"
+    >
       <!-- 图片 -->
       <img
+        v-lazy
         :src="data.photo"
         class="w-full rounded bg-transparent"
         :style="{
@@ -62,7 +68,7 @@ defineProps({
     </h2>
     <!-- 作者 -->
     <div class="flex items-center mt-1 px-1">
-      <img :src="data.avatar" alt="" class="rounded-full h-2 w-2" />
+      <img v-lazy :src="data.avatar" alt="" class="rounded-full h-2 w-2" />
       <span class="text-sm text-zinc-500 ml-1">{{ data.author }}</span>
     </div>
   </div>

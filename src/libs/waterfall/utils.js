@@ -38,8 +38,8 @@ export const waitImgsLoaded = (imgs) => {
       imageObj.src = imgSrc
 
       // 加载成功 & 失败
-      imageObj.onload = () => resolve({ src: imgSrc })
-      imageObj.onerror = () => resolve({ src: imgSrc })
+      imageObj.onload = () => resolve({ imgSrc })
+      imageObj.onerror = () => resolve({ imgSrc })
     })
 
     promiseAll.push(promise)

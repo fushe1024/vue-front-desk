@@ -104,30 +104,25 @@ onMounted(() => {
 
 // item 的高度集合
 let itemHeights = []
-
 /**
  * 瀑布流布局计算高度函数
- * @param {boolean} [needPreload=false] 是否需要图片预加载
+ * @param {boolean} [needPreload] 是否需要图片预加载
  */
-const calculateLayout = (needPreload = false) => {
+const calculateLayout = async (needPreload) => {
   itemHeights = []
 
   const itemElements = [...document.querySelectorAll('.m-waterfall-item')]
 
+  // 需要预加载的情况下，等待图片加载完成
   if (needPreload) {
-    // 需要预加载的情况
     const imgElements = getImgElements(itemElements)
     const imgSrcs = getImgSrcs(imgElements)
-
-    waitImgsLoaded(imgSrcs).then(() => {
-      // 图片加载完成后计算高度
-      itemElements.forEach((el) => itemHeights.push(el.offsetHeight))
-    })
-  } else {
-    // 不需要预加载，直接计算高度
-    itemElements.forEach((el) => itemHeights.push(el.offsetHeight))
+    // 等待图片加载完成
+    await waitImgsLoaded(imgSrcs)
   }
 
+  // 不需要预加载则直接计算高度
+  itemElements.forEach((el) => itemHeights.push(el.offsetHeight))
   // 计算 item 位置，并使用
   useItemLocation()
 }
@@ -210,7 +205,7 @@ const onReBuild = () => {
 
     // 重置所有定位数据，因为 data 中进行了深度监听， 所以会重新触发 watch 监听
     props.data.forEach((item) => (item._style = null))
-  }, 10)
+  }, 200)
 }
 
 /**
@@ -220,9 +215,9 @@ watch(
   () => props.column,
   () => {
     // 在 isLazy 为 true 的前提下，需要先将列宽滞空，滞空后，会取消瀑布流的渲染
-    if (props.isLazy) {
-      columnWidth.value = 0
-    }
+    // if (props.isLazy) {
+    columnWidth.value = 0
+    // }
     // 重新构建瀑布流
     onReBuild()
   }
@@ -256,7 +251,7 @@ onUnmounted(() => {
       </div>
     </template>
     <!-- 加载中 -->
-    <div v-else>加载中...</div>
+    <div v-else class="text-center text-lg text-zinc-400">加载中...</div>
   </div>
 </template>
 

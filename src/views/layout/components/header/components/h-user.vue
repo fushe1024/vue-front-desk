@@ -44,6 +44,7 @@ const onMenuClick = (path) => {
       >
         <!-- 头像 -->
         <img
+          v-lazy
           class="w-3 h-3 rounded-sm mr-0.5"
           src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png"
           alt=""
