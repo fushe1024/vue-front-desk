@@ -18,7 +18,7 @@ defineEmits(['onItemClick'])
           v-for="(item, index) in categorys"
           :key="item.id"
           class="text-lg text-zinc-900 px-1 py-1.5 duration-100 dark:hover:text-zinc-300 active:dark:bg-zinc-900"
-          @click="$emit('onItemClick', index)"
+          @click="$emit('onItemClick', item, index)"
         >
           {{ item.name }}
         </li>

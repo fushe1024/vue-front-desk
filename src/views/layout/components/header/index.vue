@@ -1,6 +1,6 @@
 <script setup>
 import logoVue from './components/h-logo.vue'
-import searchVue from './components/h-search.vue'
+import searchVue from './components/h-search/index.vue'
 import themeVue from './components/h-theme.vue'
 import userVue from './components/h-user.vue'
 </script>

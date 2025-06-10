@@ -54,7 +54,12 @@ const emitLoad = () => {
 watch(loading, () => {
   setTimeout(() => {
     emitLoad()
-  }, 200)
+  }, 100)
+})
+
+// 暴露方法
+defineExpose({
+  emitLoad
 })
 </script>
 

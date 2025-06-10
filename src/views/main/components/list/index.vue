@@ -1,8 +1,11 @@
 <script setup>
+import item from './item.vue'
 import { getPexelsList } from '@/api/pexels'
 import { isMobileTerminal } from '@/utils/flexible'
-import { ref } from 'vue'
-import item from './item.vue'
+import { ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useAppStore } from '@/stores/modules/app'
+const { categoryId, searchText } = storeToRefs(useAppStore())
 
 // 列表请求参数
 const reqData = ref({
@@ -47,12 +50,46 @@ const getPexelsData = async () => {
   // 数据加载完成，设置 loading 状态为 false
   isLoading.value = false
 }
+
+// 重置数据
+const listRef = ref(null)
+const resetData = (newQuery) => {
+  // 合并新的请求参数
+  reqData.value = {
+    ...reqData.value,
+    ...newQuery
+  }
+  // 重置状态
+  pexelsList.value = []
+  isFinished.value = false
+  isLoading.value = false
+  listRef.value.emitLoad()
+}
+
+// 监听 categoryId 的变化
+watch(categoryId, (newCategoryId) => {
+  // 重置请求参数数据
+  resetData({
+    categoryId: newCategoryId,
+    page: 1
+  })
+})
+
+// 监听 searchText 的变化
+watch(searchText, (newSearchText) => {
+  // 重置请求参数数据
+  resetData({
+    searchText: newSearchText,
+    page: 1
+  })
+})
 </script>
 
 <template>
   <div>
     <!-- 长列表组件 -->
     <m-infinite-list
+      ref="listRef"
       v-model:loading="isLoading"
       :isFinished="isFinished"
       @onLoad="getPexelsData"

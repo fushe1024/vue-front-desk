@@ -25,7 +25,6 @@ const emit = defineEmits([
  * 监听输入行为
  */
 watch(inputValue, (value) => {
-  console.log('输入事件', value) // test
   emit(EMIT_INPUT, value)
 })
 
@@ -41,7 +40,6 @@ const onClearClick = () => {
  * 搜索
  */
 const onSearch = () => {
-  console.log('搜索', inputValue.value) // test
   emit(EMIT_SEARCH, inputValue.value)
 }
 
@@ -68,6 +66,18 @@ onClickOutside(searchRef, () => {
 const onBlur = () => {
   emit(EMIT_BLUR)
 }
+
+/**
+ * 关闭下拉框
+ */
+const closeDropdown = () => {
+  isFocus.value = false
+}
+
+// 暴露方法
+defineExpose({
+  closeDropdown
+})
 </script>
 
 <template>

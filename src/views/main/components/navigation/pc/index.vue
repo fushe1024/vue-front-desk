@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useCategoryStore } from '@/stores/modules/category'
 const { categorys } = storeToRefs(useCategoryStore())
+import { useAppStore } from '@/stores/modules/app'
+const { setCategory } = useAppStore()
 
 // 菜单状态切换
 const isOpenCategory = ref(false)
@@ -12,9 +14,9 @@ const triggerState = () => {
 
 // 点击 item 项时触发
 const currentIndex = ref(0)
-const handleClick = (index) => {
+const handleClick = (item, index) => {
   currentIndex.value = index
-  console.log(index)
+  setCategory(item.id)
 }
 </script>
 
@@ -45,7 +47,7 @@ const handleClick = (index) => {
           'bg-zinc-200 dark:text-zinc-300 dark:bg-zinc-900':
             currentIndex === index
         }"
-        @click="handleClick(index)"
+        @click="handleClick(item, index)"
       >
         {{ item.name }}
       </li>

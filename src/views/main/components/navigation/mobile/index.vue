@@ -5,6 +5,8 @@ import { useScroll } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { useCategoryStore } from '@/stores/modules/category'
 const { categorys } = storeToRefs(useCategoryStore())
+import { useAppStore } from '@/stores/modules/app'
+const { setCategory } = useAppStore()
 
 // 滑块样式
 const sliderStyle = ref({
@@ -39,9 +41,14 @@ watch(currentIndex, (val) => {
   }
 })
 
+// popup 是否显示
+const isPopup = ref(false)
+
 // 点击 item 项时触发
-const handleClick = (index) => {
+const handleClick = (item, index) => {
   currentIndex.value = index
+  setCategory(item.id)
+  // 关闭 popup
   isPopup.value = false
 }
 
@@ -49,9 +56,6 @@ const handleClick = (index) => {
 onBeforeUpdate(() => {
   itemRefs.value = []
 })
-
-// popup 是否显示
-const isPopup = ref(false)
 </script>
 
 <template>
@@ -81,7 +85,7 @@ const isPopup = ref(false)
         class="shrink-0 px-1.5 py-0.5 z-10 duration-200 last:mr-4"
         :class="{ 'text-zinc-100': currentIndex === index }"
         :ref="setItemRef"
-        @click="handleClick(index)"
+        @click="handleClick(item, index)"
       >
         {{ item.name }}
       </li>
