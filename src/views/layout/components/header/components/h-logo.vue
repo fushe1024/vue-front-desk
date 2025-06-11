@@ -8,7 +8,7 @@ const goHome = () => {
 </script>
 
 <template>
-  <div>
+  <div id="guide-home">
     <img
       v-lazy
       @click="goHome"

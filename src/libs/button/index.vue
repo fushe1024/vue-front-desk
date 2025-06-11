@@ -1,6 +1,7 @@
 <script setup>
 import { typeEnum, sizeEnum, EMIT_CLICK } from './config'
 import { computed } from 'vue'
+import mSvgIcon from '../svg-icon/index.vue'
 
 /**
  * 按钮属性

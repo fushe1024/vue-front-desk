@@ -2,6 +2,7 @@
 import { useSearchStore } from '@/stores/modules/search'
 const store = useSearchStore()
 import { EMITS_ITEM_CLICK } from './config'
+import { confirm } from '@/libs/index'
 
 const emits = defineEmits([EMITS_ITEM_CLICK])
 
@@ -9,7 +10,13 @@ const emits = defineEmits([EMITS_ITEM_CLICK])
  * 清除搜索历史
  */
 const clearHistory = () => {
-  store.clearSearchHistory()
+  confirm({
+    content: '是否确认清空搜索历史？'
+  })
+    .then(() => {
+      store.clearSearchHistory()
+    })
+    .catch(() => {})
 }
 
 /**
@@ -35,7 +42,7 @@ const handleSearchHistory = (item) => {
         icon-class="delete"
         class="w-1.5 h-1.5 ml-1 cursor-pointer duration-300 rounded-sm hover:bg-zinc-100"
         fill-class="text-zinc-400"
-        @click="clearHistory"
+        @click.stop="clearHistory"
       ></m-svg-icon>
     </div>
     <!-- item -->
@@ -44,7 +51,7 @@ const handleSearchHistory = (item) => {
         v-for="item in store.searchHistory"
         :key="item"
         class="mr-2 mb-1.5 flex items-center cursor-pointer bg-zinc-100 px-1.5 py-0.5 rounded-sm text-zinc-900 text-sm font-bold duration-300 hover:bg-zinc-200"
-        @click="handleSearchHistory(item)"
+        @click.stop="handleSearchHistory(item)"
       >
         <span>{{ item }}</span>
         <m-svg-icon

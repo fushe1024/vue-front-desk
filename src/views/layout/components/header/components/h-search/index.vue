@@ -28,24 +28,14 @@ const handleSearch = (keyword) => {
 const handleItemClick = (item) => {
   inputValue.value = item
   setSearchText(item)
-}
-
-// 失去焦点 - 关闭下拉框
-const searchRef = ref(null)
-const blurFun = () => {
-  searchRef.value.closeDropdown()
+  historyStore.addSearchHistory(item)
 }
 </script>
 
 <template>
-  <div class="w-full">
+  <div class="w-full" id="guide-search">
     <!-- 通用组件 -->
-    <m-search
-      ref="searchRef"
-      v-model="inputValue"
-      @search="handleSearch"
-      @blur="blurFun"
-    >
+    <m-search ref="searchRef" v-model="inputValue" @search="handleSearch">
       <template #dropdown>
         <!-- 搜索历史 & 热门精选 -->
         <div v-show="!showHint">

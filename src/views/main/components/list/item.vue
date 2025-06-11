@@ -1,5 +1,9 @@
 <script setup>
 import { randomRGB } from '@/utils/color'
+import { saveAs } from 'file-saver'
+import { useFullscreen } from '@vueuse/core'
+
+import { ref } from 'vue'
 
 defineProps({
   data: {
@@ -10,6 +14,25 @@ defineProps({
     type: Number
   }
 })
+
+/**
+ * 图片下载
+ * @param {*} url 图片地址
+ */
+const download = (url) => {
+  saveAs(url)
+}
+
+// 图片元素
+const imgRef = ref(null)
+const { enter } = useFullscreen(imgRef)
+
+/**
+ * 图片全屏
+ */
+const fullScreen = () => {
+  enter()
+}
 </script>
 
 <template>
@@ -22,6 +45,7 @@ defineProps({
     >
       <!-- 图片 -->
       <img
+        ref="imgRef"
         v-lazy
         :src="data.photo"
         class="w-full rounded bg-transparent"
@@ -49,6 +73,7 @@ defineProps({
           size="small"
           icon="download"
           icon-class="fill-zinc-900 dark:fill-zinc-200"
+          @click="download(data.photo)"
         />
         <!-- 全屏 -->
         <m-button
@@ -57,6 +82,7 @@ defineProps({
           size="small"
           icon="full"
           icon-class="fill-zinc-900 dark:fill-zinc-200"
+          @click="fullScreen"
         />
       </div>
     </div>

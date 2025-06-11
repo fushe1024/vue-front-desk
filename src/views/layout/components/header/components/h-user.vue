@@ -40,6 +40,7 @@ const onMenuClick = (path) => {
   <m-popover v-if="true">
     <template #reference>
       <div
+        id="guide-my"
         class="flex items-center p-1 cursor-pointer duration-200 outline-none hover:bg-zinc-100 rounded-sm dark:hover:bg-zinc-900"
       >
         <!-- 头像 -->
@@ -85,7 +86,13 @@ const onMenuClick = (path) => {
     </div>
   </m-popover>
   <!-- 未登录 -->
-  <m-button v-else icon="profile" class="rounded" @click="login"></m-button>
+  <m-button
+    id="guide-my"
+    v-else
+    icon="profile"
+    class="rounded"
+    @click="login"
+  ></m-button>
 </template>
 
 <style scoped></style>

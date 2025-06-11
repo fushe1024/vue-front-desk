@@ -3,6 +3,9 @@ import { defineAsyncComponent } from 'vue'
 // 导入当前目录下的所有 .vue 文件
 const modules = import.meta.glob('./*/index.vue')
 
+// 导出 confirm
+export { confirm } from './confirm'
+
 export default {
   install(app) {
     // 遍历modules对象
