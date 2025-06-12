@@ -1,11 +1,14 @@
 <script setup>
 import item from './item.vue'
+import pinsVue from '@/views/pins/components/pins.vue'
 import { getPexelsList } from '@/api/pexels'
 import { isMobileTerminal } from '@/utils/flexible'
 import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAppStore } from '@/stores/modules/app'
 const { categoryId, searchText } = storeToRefs(useAppStore())
+import { gsap } from 'gsap'
+import { useEventListener } from '@vueuse/core'
 
 // 列表请求参数
 const reqData = ref({
@@ -83,6 +86,69 @@ watch(searchText, (newSearchText) => {
     page: 1
   })
 })
+
+// 控制 pins 展示
+const isVisable = ref(false)
+// 当前选中的 pins 属性
+const currentPins = ref(null)
+
+/**
+ * 进入 pins 详情
+ * @param {*} item 图片数据
+ */
+const onToPin = (item) => {
+  history.pushState(null, '', `/pins/${item.id}`)
+  currentPins.value = item
+  isVisable.value = true
+}
+
+/**
+ * 监听路由变化
+ */
+useEventListener(window, 'popstate', () => {
+  isVisable.value = false
+})
+
+/**
+ * 进入动画开始前
+ */
+const beforeEnter = (el) => {
+  gsap.set(el, {
+    scaleX: 0,
+    scaleY: 0,
+    transformOrigin: '0 0',
+    translateX: currentPins.value.center?.x,
+    translateY: currentPins.value.center?.y,
+    opacity: 0
+  })
+}
+/**
+ * 进入动画执行中
+ */
+const enter = (el, done) => {
+  gsap.to(el, {
+    duration: 0.3,
+    scaleX: 1,
+    scaleY: 1,
+    opacity: 1,
+    translateX: 0,
+    translateY: 0,
+    onComplete: done
+  })
+}
+/**
+ * 离开动画执行中
+ */
+const leave = (el) => {
+  gsap.to(el, {
+    duration: 0.3,
+    scaleX: 0,
+    scaleY: 0,
+    x: currentPins.value.center?.x,
+    y: currentPins.value.center?.y,
+    opacity: 0
+  })
+}
 </script>
 
 <template>
@@ -103,10 +169,25 @@ watch(searchText, (newSearchText) => {
         :is-lazy="false"
       >
         <template #default="{ item, width }">
-          <item :key="item.id" :data="item" :width="width"></item>
+          <item
+            :key="item.id"
+            :data="item"
+            :width="width"
+            @click="onToPin"
+          ></item>
         </template>
       </m-waterfall>
     </m-infinite-list>
+
+    <!-- 大图详情处理 -->
+    <transition
+      :css="false"
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @leave="leave"
+    >
+      <pins-vue v-if="isVisable" :id="currentPins.id"></pins-vue>
+    </transition>
   </div>
 </template>
 

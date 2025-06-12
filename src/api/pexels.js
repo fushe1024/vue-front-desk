@@ -19,3 +19,9 @@ export const getSearchHint = (keyword) => {
  * 获取热门精选
  */
 export const getHotSelection = () => request.get('/pexels/themes')
+
+/**
+ * 获取图片详情数据
+ * @param {*} id
+ */
+export const getPexelsDetail = (id) => request.get(`/pexels/${id}`)

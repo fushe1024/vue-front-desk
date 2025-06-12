@@ -5,6 +5,8 @@ const modules = import.meta.glob('./*/index.vue')
 
 // 导出 confirm
 export { confirm } from './confirm'
+// 导出 message
+export { message } from './message'
 
 export default {
   install(app) {

@@ -2,10 +2,11 @@
 import { randomRGB } from '@/utils/color'
 import { saveAs } from 'file-saver'
 import { useFullscreen } from '@vueuse/core'
+import { message } from '@/libs'
+import { ref, computed } from 'vue'
+import { useElementBounding } from '@vueuse/core'
 
-import { ref } from 'vue'
-
-defineProps({
+const props = defineProps({
   data: {
     type: Object,
     required: true
@@ -15,12 +16,19 @@ defineProps({
   }
 })
 
+const emit = defineEmits(['click'])
+
 /**
  * 图片下载
  * @param {*} url 图片地址
  */
 const download = (url) => {
   saveAs(url)
+  message({
+    type: 'success',
+    content: '请选择图片下载位置，点击“保存”按钮',
+    duration: 2000
+  })
 }
 
 // 图片元素
@@ -33,6 +41,48 @@ const { enter } = useFullscreen(imgRef)
 const fullScreen = () => {
   enter()
 }
+
+/**
+ * pins 跳转处理， 记录当前图片的中心点坐标
+ */
+const {
+  x: imgX,
+  y: imgY,
+  width: imgWidth,
+  height: imgHeight
+} = useElementBounding(imgRef)
+
+// 图片中心点坐标
+const imgCenter = computed(() => {
+  return {
+    x: parseInt(imgX.value + imgWidth.value / 2),
+    y: parseInt(imgY.value + imgHeight.value / 2)
+  }
+})
+
+/**
+ * 点击 item 项
+ */
+const onIemClick = () => {
+  emit('click', {
+    id: props.data.id,
+    center: imgCenter.value // 图片中心点坐标
+  })
+}
+
+/**
+ * 分享
+ */
+const onShare = () => {
+  console.log('分享')
+}
+
+/**
+ * 收藏
+ */
+const onCollect = (id) => {
+  console.log('收藏：', id)
+}
 </script>
 
 <template>
@@ -42,6 +92,7 @@ const fullScreen = () => {
     <div
       class="relative w-full rounded cursor-zoom-in group"
       :style="{ backgroundColor: randomRGB() }"
+      @click="onIemClick"
     >
       <!-- 图片 -->
       <img
@@ -58,13 +109,16 @@ const fullScreen = () => {
         class="opacity-0 w-full h-full bg-zinc-900/50 absolute top-0 left-0 rounded duration-300 group-hover:opacity-100 xl:block"
       >
         <!-- 分享 -->
-        <m-button class="absolute top-1.5 left-1.5">分享</m-button>
+        <m-button class="absolute top-1.5 left-1.5" @click="onShare">
+          分享
+        </m-button>
         <!-- 收藏 -->
         <m-button
           class="absolute top-1.5 right-1.5"
           type="info"
           icon="heart"
           icon-class="fill-zinc-900 dark:fill-zinc-200"
+          @click="onCollect(data.id)"
         />
         <!-- 下载 -->
         <m-button

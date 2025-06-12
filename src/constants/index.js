@@ -40,3 +40,6 @@ export const CATEGORY_DATA = [
   { id: 'art', name: '人文艺术' },
   { id: 'home', name: '家居/家装' }
 ]
+
+// 反馈地址
+export const FEEDBACK_URL = 'https://support.qq.com/embed/383681/new-post'

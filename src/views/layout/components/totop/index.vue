@@ -3,12 +3,13 @@ import { driver } from 'driver.js'
 import 'driver.js/dist/driver.css'
 import steps from './steps'
 import { onMounted } from 'vue'
+import { FEEDBACK_URL } from '@/constants'
 
 /**
  * 立即吐槽
  */
 const onToFeedback = () => {
-  window.open('https://support.qq.com/embed/383681/new-post', '_blank')
+  window.open(FEEDBACK_URL, '_blank')
 }
 
 // driver 实例
@@ -19,7 +20,6 @@ let driverTarget = null
  */
 onMounted(() => {
   driverTarget = driver({
-    showProgress: true,
     showButtons: ['next', 'previous', 'close'],
     nextBtnText: '下一步',
     prevBtnText: '上一步',

@@ -3,7 +3,7 @@ export default [
     element: '#guide-home', // 在哪个元素中高亮
     // 配置对象
     popover: {
-      title: 'logo', // 标题
+      title: 'Logo', // 网站图标
       description: '点击可返回首页' // 描述
     }
   },
