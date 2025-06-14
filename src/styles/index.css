@@ -27,16 +27,23 @@
   /* 自定义 color */
   --color-main: #f44c58;
   --color-hover-main: #f32836;
-  --color-success-100: #F2F9EC;
-  --color-success-200: #E4F2DB;
-  --color-success-300: #7EC050;
-  --color-warning-100: #ECE6ED;
-  --color-warning-200: #F8ECDA;
-  --color-warning-300: #DCA550;
-  --color-error-100: #ED7456;
+
+  --color-success-100: #f2f9ec;
+  --color-success-200: #e4f2db;
+  --color-success-300: #7ec050;
+
+  --color-warning-100: #ecf6ed;
+  --color-warning-200: #f8ecda;
+  --color-warning-300: #dca550;
+
+  --color-error-100: #ed7456;
   --color-error-200: #f3471c;
   --color-error-300: #ffffff;
 
   /* 自定义 blur */
   --blur-4xl: 240px;
+}
+
+@utility form-error {
+  @apply text-base line-clamp-1 text-main py-0.5;
 }

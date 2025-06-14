@@ -65,7 +65,7 @@ const imgCenter = computed(() => {
  */
 const onIemClick = () => {
   emit('click', {
-    id: props.data.id,
+    id: props.data.id, // 图片 id
     center: imgCenter.value // 图片中心点坐标
   })
 }

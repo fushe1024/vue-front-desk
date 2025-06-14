@@ -1,4 +1,7 @@
 <script setup>
+import { useSlots } from 'vue'
+const slots = useSlots()
+
 const props = defineProps({
   // 左侧按钮回调
   onLeftClick: {
@@ -19,7 +22,7 @@ const props = defineProps({
  * 左侧按钮点击事件
  */
 const leftClick = () => {
-  if (props.onLeftClick) {
+  if (props.onLeftClick && slots.left) {
     props.onLeftClick()
   }
 }
@@ -28,7 +31,7 @@ const leftClick = () => {
  * 右侧按钮点击事件
  */
 const rightClick = () => {
-  if (props.onRightClick) {
+  if (props.onRightClick && slots.right) {
     props.onRightClick()
   }
 }
@@ -44,13 +47,7 @@ const rightClick = () => {
       class="h-full w-5 absolute left-0 flex items-center justify-center"
       @click="leftClick"
     >
-      <slot name="left">
-        <m-svg-icon
-          icon-class="back"
-          class="w-2 h-2"
-          fill-class="fill-zinc-900 dark:fill-zinc-200"
-        />
-      </slot>
+      <slot name="left"></slot>
     </div>
     <!-- 中 -->
     <div
@@ -63,7 +60,7 @@ const rightClick = () => {
       class="h-full w-5 absolute right-0 flex items-center justify-center"
       @click="rightClick"
     >
-      <slot name="right" />
+      <slot name="right"></slot>
     </div>
   </div>
 </template>

@@ -8,6 +8,8 @@ import {
   PROP_BOTTOM_RIGHT
 } from './config'
 import { ref, watch, nextTick } from 'vue'
+import { useSlots } from 'vue'
+const slots = useSlots()
 
 // 定义 props
 const props = defineProps({
@@ -35,6 +37,7 @@ const isShow = ref(false)
  */
 let timer = null
 const onMouseenter = () => {
+  if (!slots.default) return
   isShow.value = true
   if (timer) clearTimeout(timer) // 清除定时器
 }
@@ -43,6 +46,7 @@ const onMouseenter = () => {
  * 鼠标移出
  */
 const onMouseleave = () => {
+  if (!slots.default) return
   timer = setTimeout(() => {
     isShow.value = false
   }, DELAY_TIME)
@@ -111,7 +115,7 @@ watch(isShow, (value) => {
     <Transition name="side">
       <div
         ref="popoverRef"
-        v-if="isShow"
+        v-if="isShow && slots.default"
         class="absolute p-1 z-20 bg-white border border-zinc-200/60 rounded-md dark:bg-zinc-900 dark:border-zinc-700"
       >
         <!-- 默认插槽 -->

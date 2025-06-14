@@ -15,6 +15,14 @@ export default [
     }
   },
   {
+    element: '#guide-github',
+    popover: {
+      title: 'GitHub',
+      description: '这里是项目的GitHub地址',
+      position: 'left'
+    }
+  },
+  {
     element: '#guide-theme',
     popover: {
       title: '风格',

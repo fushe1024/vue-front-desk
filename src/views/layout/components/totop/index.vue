@@ -35,7 +35,7 @@ const onGuideBtn = () => {
 </script>
 
 <template>
-  <div class="fixed bottom-10 right-2">
+  <div class="fixed bottom-10 right-2 z-50">
     <!-- 引导按钮 -->
     <div
       id="guide-start"

@@ -52,7 +52,7 @@ onMounted(() => {
     <!-- message box -->
     <div
       v-show="isVisable"
-      class="min-w-[420px] fixed top-[20px] left-[50%] translate-x-[-50%] z-50 flex items-center px-3 py-1.5 rounded-sm border cursor-pointer"
+      class="lg:w-[420px] w-[80%] fixed top-[20px] left-[50%] translate-x-[-50%] z-50 flex items-center px-3 py-1.5 rounded-sm border cursor-pointer"
       :class="typeStyles[type].containerClass"
     >
       <!-- message icon -->

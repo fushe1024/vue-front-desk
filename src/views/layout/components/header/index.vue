@@ -3,6 +3,7 @@ import logoVue from './components/h-logo.vue'
 import searchVue from './components/h-search/index.vue'
 import themeVue from './components/h-theme.vue'
 import userVue from './components/h-user.vue'
+import addressVue from './components/h-address.vue'
 </script>
 
 <template>
@@ -14,6 +15,8 @@ import userVue from './components/h-user.vue'
       <logo-vue class="mr-2"></logo-vue>
       <!-- 搜索区域 -->
       <search-vue class="flex-1 mr-1"></search-vue>
+      <!-- 项目地址 -->
+      <address-vue class="mr-1"></address-vue>
       <!-- 主题切换 -->
       <theme-vue class="mr-1"></theme-vue>
       <!-- 用户信息 -->

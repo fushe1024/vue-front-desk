@@ -53,6 +53,13 @@ const onCollect = (id) => {
       :onLeftClick="onClose"
       :onRightClick="onShare"
     >
+      <template #left>
+        <m-svg-icon
+          icon-class="back"
+          class="w-2 h-2"
+          fill-class="fill-zinc-900 dark:fill-zinc-200"
+        />
+      </template>
       {{ pexelsData.title }}
       <template #right>
         <m-svg-icon
@@ -72,7 +79,7 @@ const onCollect = (id) => {
       @click="onClose"
     ></m-svg-icon>
 
-    <!-- content 盒子 -->
+    <!-- content 区域 -->
     <div class="lg:w-[80%] lg:h-full lg:mx-auto lg:rounded-lg lg:flex">
       <!-- 左侧图片 -->
       <img
@@ -84,7 +91,7 @@ const onCollect = (id) => {
       <div
         class="lg:w-2/5 lg:h-full lg:bg-white lg:dark:bg-zinc-900 lg:rounded-tr-lg lg:rounded-br-lg lg:p-3"
       >
-        <!-- PC端 分享和收藏 -->
+        <!-- PC端才展示 分享和收藏 -->
         <div v-if="!isMobileTerminal" class="flex justify-between mb-2">
           <m-svg-icon
             icon-class="share"

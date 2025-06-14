@@ -43,3 +43,13 @@ export const CATEGORY_DATA = [
 
 // 反馈地址
 export const FEEDBACK_URL = 'https://support.qq.com/embed/383681/new-post'
+
+// logo 地址
+export const LOGO_URL =
+  'https://himg.bdimg.com/sys/portraitn/item/public.1.787fa7c8._FEORP-kBzptJmxhAH4u9A'
+
+// 用户协议与隐私政策
+export const USER_AGREEMENT_URL =
+  'https://www.baidu.com/s?wd=用户协议与隐私政策'
+export const PRIVACY_POLICY_URL =
+  'https://www.baidu.com/s?wd=用户协议与隐私政策'

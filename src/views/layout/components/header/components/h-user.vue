@@ -1,5 +1,9 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { confirm } from '@/libs'
+import { useUserStore } from '@/stores/modules/user'
+const userStore = useUserStore()
+
 // menu 数据
 const menuData = [
   {
@@ -28,16 +32,33 @@ const login = () => {
 }
 
 /**
- * 菜单点击
+ * 菜单点击 跳转对应页面
  */
 const onMenuClick = (path) => {
-  router.push(path)
+  if (path) {
+    router.push(path)
+    return
+  }
+  confirm({
+    content: '您确定要退出登录吗？'
+  }).then(() => {
+    userStore.logout()
+  })
 }
 </script>
 
 <template>
+  <!-- 未登录 -->
+  <m-button
+    id="guide-my"
+    v-if="!userStore.token"
+    icon="profile"
+    class="rounded"
+    @click="login"
+  ></m-button>
+
   <!-- 登陆后显示 -->
-  <m-popover v-if="true">
+  <m-popover v-else>
     <template #reference>
       <div
         id="guide-my"
@@ -47,7 +68,7 @@ const onMenuClick = (path) => {
         <img
           v-lazy
           class="w-3 h-3 rounded-sm mr-0.5"
-          src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png"
+          :src="userStore.userInfo.avatar"
           alt=""
         />
         <!-- 箭头 -->
@@ -58,7 +79,7 @@ const onMenuClick = (path) => {
         ></m-svg-icon>
         <!-- vip 标记 -->
         <m-svg-icon
-          v-if="true"
+          v-if="userStore.userInfo.vipLevel"
           class="w-1.5 h-1.5 absolute right-[20px] bottom-[5px]"
           icon-class="vip"
         ></m-svg-icon>
@@ -85,14 +106,6 @@ const onMenuClick = (path) => {
       </div>
     </div>
   </m-popover>
-  <!-- 未登录 -->
-  <m-button
-    id="guide-my"
-    v-else
-    icon="profile"
-    class="rounded"
-    @click="login"
-  ></m-button>
 </template>
 
 <style scoped></style>

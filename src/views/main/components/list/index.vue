@@ -16,22 +16,16 @@ const reqData = ref({
   size: 20
 })
 
-// 是否处于 loading 状态
-const isLoading = ref(false)
-// 数据是否加载完成
-const isFinished = ref(false)
-// 列表数据
-const pexelsList = ref([])
+const isLoading = ref(false) // 是否处于 loading 状态
+const isFinished = ref(false) // 数据是否加载完成
+const pexelsList = ref([]) // 列表数据
 
 // 获取列表数据
 const getPexelsData = async () => {
-  // 如果数据加载完成，直接返回
   if (isFinished.value) return
 
-  // 第一次请求，后续加载让 page + 1
-  if (pexelsList.value.length) {
-    reqData.value.page++
-  }
+  // 除第一次请求外，后续请求让 page + 1
+  if (pexelsList.value.length) reqData.value.page++
 
   // 触发接口请求
   const res = await getPexelsList(reqData.value)
@@ -42,7 +36,6 @@ const getPexelsData = async () => {
   } else {
     // 后续请求追加数据源
     pexelsList.value = [...pexelsList.value, ...res.list]
-    // 或者 pexelsList.value.push(...res.list)
   }
 
   // 判断数据是否全部加载完成
@@ -55,7 +48,6 @@ const getPexelsData = async () => {
 }
 
 // 重置数据
-const listRef = ref(null)
 const resetData = (newQuery) => {
   // 合并新的请求参数
   reqData.value = {
@@ -66,7 +58,6 @@ const resetData = (newQuery) => {
   pexelsList.value = []
   isFinished.value = false
   isLoading.value = false
-  listRef.value.emitLoad()
 }
 
 // 监听 categoryId 的变化
@@ -94,16 +85,16 @@ const currentPins = ref(null)
 
 /**
  * 进入 pins 详情
- * @param {*} item 图片数据
+ * @param {*} item pins 数据 { id: 1, center: { x: 100, y: 100 }}
  */
 const onToPin = (item) => {
   history.pushState(null, '', `/pins/${item.id}`)
+  isVisable.value = true // 展示 pins 详情
   currentPins.value = item
-  isVisable.value = true
 }
 
 /**
- * 监听路由变化
+ * 监听浏览器的 popstate 事件
  */
 useEventListener(window, 'popstate', () => {
   isVisable.value = false
@@ -139,14 +130,15 @@ const enter = (el, done) => {
 /**
  * 离开动画执行中
  */
-const leave = (el) => {
+const leave = (el, done) => {
   gsap.to(el, {
     duration: 0.3,
     scaleX: 0,
     scaleY: 0,
     x: currentPins.value.center?.x,
     y: currentPins.value.center?.y,
-    opacity: 0
+    opacity: 0,
+    onComplete: done
   })
 }
 </script>
@@ -155,7 +147,6 @@ const leave = (el) => {
   <div>
     <!-- 长列表组件 -->
     <m-infinite-list
-      ref="listRef"
       v-model:loading="isLoading"
       :isFinished="isFinished"
       @onLoad="getPexelsData"
