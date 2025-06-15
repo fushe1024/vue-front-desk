@@ -53,3 +53,9 @@ export const USER_AGREEMENT_URL =
   'https://www.baidu.com/s?wd=用户协议与隐私政策'
 export const PRIVACY_POLICY_URL =
   'https://www.baidu.com/s?wd=用户协议与隐私政策'
+
+// 微博 APP KEY
+export const WEIBO_APP_KEY = '3454329089'
+
+// 微博 APP UID
+export const WEIBO_APP_UID = '5984245953'

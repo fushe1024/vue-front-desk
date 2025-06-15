@@ -3,6 +3,7 @@ import { isMobileTerminal } from '@/utils/flexible'
 import { ref } from 'vue'
 import { getPexelsDetail } from '@/api/pexels'
 import { useRouter } from 'vue-router'
+import { weiboShare } from '@/utils/share'
 const router = useRouter()
 
 const props = defineProps({
@@ -31,7 +32,11 @@ const onClose = () => {
  * 分享
  */
 const onShare = () => {
-  console.log('分享')
+  weiboShare(
+    pexelsData.value.title,
+    `https://images.pexels.com/photos/${pexelsData.value.id}/pexels-photo-${pexelsData.value.id}.jpeg`,
+    `https://www.pexels.com/zh-cn/photo/${pexelsData.value.id}`
+  )
 }
 
 /**

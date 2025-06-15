@@ -4,6 +4,10 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.js", "src/**/*.vue"],
+  "include": [
+    "src/**/*.js",
+    "src/**/*.vue",
+    "src/vendor/slider-captcha/longbow.slidercaptcha.min.js"
+  ],
   "exclude": ["node_modules", "dist"]
 }

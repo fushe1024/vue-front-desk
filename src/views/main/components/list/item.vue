@@ -5,6 +5,7 @@ import { useFullscreen } from '@vueuse/core'
 import { message } from '@/libs'
 import { ref, computed } from 'vue'
 import { useElementBounding } from '@vueuse/core'
+import { weiboShare } from '@/utils/share'
 
 const props = defineProps({
   data: {
@@ -74,7 +75,11 @@ const onIemClick = () => {
  * 分享
  */
 const onShare = () => {
-  console.log('分享')
+  weiboShare(
+    props.data.title,
+    `https://images.pexels.com/photos/${props.data.id}/pexels-photo-${props.data.id}.jpeg`,
+    `https://www.pexels.com/zh-cn/photo/${props.data.id}`
+  )
 }
 
 /**
