@@ -59,3 +59,9 @@ export const WEIBO_APP_KEY = '3454329089'
 
 // 微博 APP UID
 export const WEIBO_APP_UID = '5984245953'
+
+// OSS Bucket
+export const OSS_BUCKET = 'imooc-front'
+
+// OSS Region
+export const OSS_REGION = 'oss-cn-beijing'

@@ -8,6 +8,7 @@ import { useREM } from './utils/flexible'
 import { initTheme } from './utils/theme'
 import libs from '@/libs'
 import 'virtual:svg-icons-register'
+import './permission'
 
 const app = createApp(App)
 

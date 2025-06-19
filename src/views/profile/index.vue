@@ -3,12 +3,17 @@ import { ref } from 'vue'
 import { isMobileTerminal } from '@/utils/flexible'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/modules/user'
+import { updateUserInfo } from '@/api/sys'
+import { message, confirm } from '@/libs'
+import changeAvatar from '@/components/change-avatar/index.vue'
 const router = useRouter()
 const userStore = useUserStore()
 
 const loading = ref(false) // 是否加载
 const inputFileTarget = ref(null) // 上传头像的 input 元素
-const inputVal = ref('admin')
+const formData = ref({ ...userStore.userInfo })
+const dialogVisible = ref(false) // 裁剪头像弹窗
+const avatarBlob = ref(null) // 头像本地预览地址
 
 /**
  * 点击更换头像
@@ -20,15 +25,25 @@ const onChangeAvatar = () => {
 /**
  * 头像选择完成
  */
-const onSelectImgHandler = (e) => {
-  console.log(e)
+const onSelectImgHandler = () => {
+  const file = inputFileTarget.value.files[0]
+  avatarBlob.value = URL.createObjectURL(file)
+  dialogVisible.value = true
 }
 
 /**
  * 保存修改
  */
-const onSave = async () => {
-  console.log('保存修改')
+const onSave = () => {
+  // 更新服务器信息
+  updateUserInfo(formData.value).then(() => {
+    message({
+      type: 'success',
+      content: '更新信息成功'
+    })
+    // 更新本地信息
+    userStore.setUserInfo(formData.value)
+  })
 }
 
 /**
@@ -42,7 +57,18 @@ const onNavbarLeftClick = () => {
  * 退出登录
  */
 const onLogout = () => {
-  userStore.logout()
+  confirm({
+    content: '您确定要退出登录吗？'
+  }).then(() => {
+    userStore.logout(true)
+  })
+}
+
+/**
+ * 关闭弹窗
+ */
+const onClose = () => {
+  dialogVisible.value = false
 }
 </script>
 
@@ -133,7 +159,11 @@ const onLogout = () => {
           <span class="w-8 block mb-1 font-bold dark:text-zinc-300 lg:mb-0">
             用户名
           </span>
-          <m-input v-model="inputVal" class="w-full" type="text"></m-input>
+          <m-input
+            v-model="formData.username"
+            class="w-full"
+            type="text"
+          ></m-input>
         </div>
 
         <!-- 职位 -->
@@ -141,7 +171,11 @@ const onLogout = () => {
           <span class="w-8 block mb-1 font-bold dark:text-zinc-300 lg:mb-0">
             职位
           </span>
-          <m-input v-model="inputVal" class="w-full" type="text"></m-input>
+          <m-input
+            v-model="formData.title"
+            class="w-full"
+            type="text"
+          ></m-input>
         </div>
 
         <!-- 公司 -->
@@ -149,7 +183,11 @@ const onLogout = () => {
           <span class="w-8 block mb-1 font-bold dark:text-zinc-300 lg:mb-0">
             公司
           </span>
-          <m-input v-model="inputVal" class="w-full" type="text"></m-input>
+          <m-input
+            v-model="formData.company"
+            class="w-full"
+            type="text"
+          ></m-input>
         </div>
 
         <!-- 个人主页 -->
@@ -157,7 +195,11 @@ const onLogout = () => {
           <span class="w-8 block mb-1 font-bold dark:text-zinc-300 lg:mb-0">
             个人主页
           </span>
-          <m-input v-model="inputVal" class="w-full" type="text"></m-input>
+          <m-input
+            v-model="formData.homePage"
+            class="w-full"
+            type="text"
+          ></m-input>
         </div>
 
         <!-- 个人介绍 -->
@@ -166,7 +208,7 @@ const onLogout = () => {
             个人介绍
           </span>
           <m-input
-            v-model="inputVal"
+            v-model="formData.introduction"
             class="w-full"
             type="textarea"
             max="50"
@@ -192,6 +234,20 @@ const onLogout = () => {
         </m-button>
       </div>
     </div>
+
+    <!-- PC Dialog -->
+    <m-dialog v-if="!isMobileTerminal" v-model="dialogVisible">
+      <changeAvatar :blob="avatarBlob" @close="onClose" />
+    </m-dialog>
+
+    <!-- 移动端 popup -->
+    <m-popup
+      v-else
+      :class="{ 'h-screen': dialogVisible }"
+      v-model="dialogVisible"
+    >
+      <changeAvatar :blob="avatarBlob" @close="onClose" />
+    </m-popup>
   </div>
 </template>
 

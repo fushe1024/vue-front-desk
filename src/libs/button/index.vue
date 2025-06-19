@@ -94,7 +94,7 @@ const onBtnClick = () => {
 <template>
   <button
     @click.stop="onBtnClick"
-    class="text-sm text-center duration-150 flex justify-center items-center rounded"
+    class="text-sm text-center duration-150 flex justify-center items-center rounded cursor-pointer"
     :class="[
       typeEnum[type],
       sizeEnum[sizeKey].button,

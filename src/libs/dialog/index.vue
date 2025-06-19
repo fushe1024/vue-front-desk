@@ -1,15 +1,11 @@
 <script setup>
-import mButton from '../button/index.vue'
-import { ref, onMounted, computed } from 'vue'
+import mButton from '@/libs/button/index.vue'
+
+const isVisable = defineModel('modelValue')
 
 const props = defineProps({
   title: {
-    type: String,
-    default: '提示'
-  },
-  content: {
-    type: String,
-    required: true
+    type: String
   },
   confirmButtonText: {
     type: String,
@@ -30,40 +26,17 @@ const props = defineProps({
   }
 })
 
-// 控制显示处理
-const isVisable = ref(false)
-
-/**
- * 显示 confirm
- */
-const show = () => {
-  isVisable.value = true
-}
-
-/**
- * 页面构建完成之后，执行。保留动画
- */
-onMounted(() => {
-  show()
-})
-
 // 全局关闭动画时间
-const duration = '0.5s'
-// 计算 setTimeout 执行时间
-const time = computed(() => {
-  return parseInt(duration.replace('0.', '').replace('s', '')) * 100
-})
+const duration = '0.3s'
 
 /**
  * 关闭 confirm，保留动画执行时长
  */
 const close = () => {
   isVisable.value = false
-  setTimeout(() => {
-    if (props.close) {
-      props.close()
-    }
-  }, time.value)
+  if (props.close) {
+    props.close()
+  }
 }
 
 /**
@@ -101,22 +74,27 @@ const onConfirmClick = () => {
     <transition name="up">
       <div
         v-if="isVisable"
-        class="w-[80%] fixed top-1/3 left-[50%] translate-x-[-50%] z-50 px-2 py-1.5 rounded-sm dark:border-zinc-600 bg-white dark:bg-zinc-800 lg:w-[35%]"
+        class="max-w-[80%] h-[80%] overflow-auto fixed top-[10%] left-[50%] translate-x-[-50%] z-50 px-2 py-1.5 rounded-sm dark:border-zinc-600 bg-white dark:bg-zinc-800 lg:min-w-[45%]"
       >
         <!-- 标题 -->
-        <div class="text-lg font-bold text-zinc-900 dark:text-zinc-200 mb-2">
-          {{ title }}
+        <div
+          v-if="title"
+          class="text-lg font-bold text-zinc-900 dark:text-zinc-200 mb-2"
+        >
+          <span>{{ title }}</span>
         </div>
+
         <!-- 内容 -->
-        <div class="text-base text-zinc-900 dark:text-zinc-200 mb-2">
-          {{ content }}
+        <div>
+          <slot></slot>
         </div>
+
         <!-- 按钮 -->
-        <div class="flex justify-end">
-          <m-button type="info" class="mr-2" @click="onCancelClick">
+        <div class="flex justify-end mt-1" v-if="onCancel || onConfirm">
+          <m-button type="primary" @click="onCancelClick">
             {{ cancelButtonText }}
           </m-button>
-          <m-button type="primary" @click="onConfirmClick">
+          <m-button class="ml-2" @click="onConfirmClick">
             {{ confirmButtonText }}
           </m-button>
         </div>
