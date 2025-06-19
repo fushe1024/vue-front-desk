@@ -14,7 +14,7 @@ export default {
     for (const path in modules) {
       // 分割路径字符串，获取文件名
       const name = path.split('/')[1]
-
+      console.log('m-' + name)
       // 通过 defineAsyncComponent 异步组件指定路径的组件
       app.component(`m-${name}`, defineAsyncComponent(modules[path]))
     }
