@@ -2,7 +2,9 @@
 import { useRouter } from 'vue-router'
 import { confirm } from '@/libs'
 import { useUserStore } from '@/stores/modules/user'
+import { useAppStore } from '@/stores/modules/app'
 const userStore = useUserStore()
+const appStore = useAppStore()
 
 // menu 数据
 const menuData = [
@@ -28,6 +30,7 @@ const menuData = [
  */
 const router = useRouter()
 const login = () => {
+  appStore.setRouterType('push')
   router.push('/login')
 }
 
@@ -36,6 +39,7 @@ const login = () => {
  */
 const onMenuClick = (path) => {
   if (path) {
+    appStore.setRouterType('push')
     router.push(path)
     return
   }

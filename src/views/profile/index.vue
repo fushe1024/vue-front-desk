@@ -1,17 +1,20 @@
 <script setup>
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { isMobileTerminal } from '@/utils/flexible'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/modules/user'
 import { updateUserInfo } from '@/api/sys'
 import { message, confirm } from '@/libs'
 import changeAvatar from '@/components/change-avatar/index.vue'
+import { useAppStore } from '@/stores/modules/app'
+const appStore = useAppStore()
 const router = useRouter()
 const userStore = useUserStore()
-
+const { userInfo } = storeToRefs(useUserStore())
 const loading = ref(false) // 是否加载
 const inputFileTarget = ref(null) // 上传头像的 input 元素
-const formData = ref({ ...userStore.userInfo })
+const formData = ref(userInfo.value)
 const dialogVisible = ref(false) // 裁剪头像弹窗
 const avatarBlob = ref(null) // 头像本地预览地址
 
@@ -50,6 +53,7 @@ const onSave = () => {
  * 移动端后退处理
  */
 const onNavbarLeftClick = () => {
+  appStore.setRouterType('back')
   router.back()
 }
 
@@ -77,7 +81,7 @@ const onClose = () => {
   <div class="h-screen bg-zinc-200 dark:bg-zinc-800 overflow-auto lg:pt-10">
     <!-- 中心盒子 -->
     <div
-      class="relative lg:w-[75%] mx-auto bg-white dark:bg-zinc-900 duration-400 lg:rounded-sm lg:border-zinc-200 lg:dark:border-zinc-600 lg:border-[1px] lg:px-4 lg:py-2"
+      class="relative lg:w-[50%] mx-auto bg-white dark:bg-zinc-900 duration-400 lg:rounded-sm lg:border-zinc-200 lg:dark:border-zinc-600 lg:border-[1px] lg:px-4 lg:py-2"
     >
       <!-- 移动端 navbar -->
       <m-navbar

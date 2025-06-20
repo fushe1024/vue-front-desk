@@ -83,6 +83,9 @@ const updateAvatar = async (avatar) => {
   message({ type: 'success', content: '头像更新成功' })
   loading.value = false
   close()
+
+  // 刷新页面
+  window.location.reload()
 }
 </script>
 

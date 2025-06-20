@@ -28,7 +28,7 @@ const download = (url) => {
   message({
     type: 'success',
     content: '请选择图片下载位置，点击“保存”按钮',
-    duration: 2000
+    duration: 4000
   })
 }
 

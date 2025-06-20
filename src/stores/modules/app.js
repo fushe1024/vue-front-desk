@@ -1,6 +1,7 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { ALL_CATEGORY_ITEM } from '@/constants'
+import { isMobileTerminal } from '@/utils/flexible'
 
 export const useAppStore = defineStore('app', () => {
   // 当前选中的分类id => 初始值为所有分类
@@ -21,5 +22,26 @@ export const useAppStore = defineStore('app', () => {
     searchText.value = text
   }
 
-  return { categoryId, setCategory, resetCategory, searchText, setSearchText }
+  // 路由跳转类型
+  const routerType = ref('none')
+  // 设置路由跳转类型
+  const setRouterType = (newType) => {
+    routerType.value = newType
+  }
+  // 计算当前路由跳转类型
+  const computedRouterType = computed(() => {
+    if (!isMobileTerminal.value) return 'none' // PC 端默认 none
+    return routerType.value
+  })
+
+  return {
+    categoryId,
+    setCategory,
+    resetCategory,
+    searchText,
+    setSearchText,
+    routerType,
+    computedRouterType,
+    setRouterType
+  }
 })

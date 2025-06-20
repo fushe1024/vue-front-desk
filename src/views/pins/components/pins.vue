@@ -4,7 +4,9 @@ import { ref } from 'vue'
 import { getPexelsDetail } from '@/api/pexels'
 import { useRouter } from 'vue-router'
 import { weiboShare } from '@/utils/share'
+import { useAppStore } from '@/stores/modules/app'
 const router = useRouter()
+const appStore = useAppStore()
 
 const props = defineProps({
   id: {
@@ -25,6 +27,7 @@ getPexelsData()
  * 处理返回事件
  */
 const onClose = () => {
+  appStore.setRouterType('back')
   router.back()
 }
 
@@ -49,7 +52,7 @@ const onCollect = (id) => {
 
 <template>
   <div
-    class="fixed left-0 top-0 w-screen h-screen z-20 backdrop-blur-4xl dark:bg-zinc-800 pb-2 overflow-y-auto bg-transparent lg:p-2"
+    class="fixed left-0 top-0 w-screen h-screen z-20 lg:backdrop-blur-4xl dark:bg-zinc-800 overflow-y-auto bg-transparent lg:p-2"
   >
     <!-- 移动端下展示顶部 navbar -->
     <m-navbar
@@ -85,7 +88,7 @@ const onCollect = (id) => {
     ></m-svg-icon>
 
     <!-- content 区域 -->
-    <div class="lg:w-[80%] lg:h-full lg:mx-auto lg:rounded-lg lg:flex">
+    <div class="lg:w-[80%] h-full lg:mx-auto lg:rounded-lg lg:flex bg-white">
       <!-- 左侧图片 -->
       <img
         class="w-screen mb-2 lg:w-3/5 lg:h-full lg:rounded-tl-lg lg:rounded-bl-lg"
