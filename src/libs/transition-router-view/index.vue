@@ -80,7 +80,7 @@ const afterLeave = () => {
       @before-enter="beforeEnter"
       @after-leave="afterLeave"
     >
-      <keep-alive :include="taskStack">
+      <keep-alive>
         <component
           :is="Component"
           :key="$route.fullPath"

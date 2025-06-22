@@ -30,7 +30,7 @@ const onUserClick = () => {
 
 // 记录当前页面滚动位置
 const containerRef = ref(null)
-const { y: scrollTopY } = useScroll(containerRef.value)
+const { y: scrollTopY } = useScroll(containerRef)
 
 // 被缓存的组件再次可见，会调用 onActivated 方法
 onActivated(() => {
