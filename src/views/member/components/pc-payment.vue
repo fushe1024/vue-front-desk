@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-defineProps({
+const props = defineProps({
   disCount: {
     type: Number,
     default: 0.9
@@ -17,6 +17,11 @@ defineProps({
 })
 
 const isDisCount = ref(true)
+
+// 去支付
+const goPay = () => {
+  console.log('currentPayData', props.currentPayData)
+}
 </script>
 
 <template>
@@ -55,7 +60,9 @@ const isDisCount = ref(true)
       class="mt-3 border border-zinc-200 dark:border-zinc-600 rounded-sm h-[60px] px-2 flex items-center cursor-pointer duration-200 hover:bg-zinc-50 hover:dark:bg-zinc-800"
     >
       <img class="w-[40px]" src="../../../assets/images/alipay.png" />
-      <p class="text-xl ml-1 text-zinc-800 dark:text-zinc-200">支付宝</p>
+      <p class="text-xl ml-1 text-zinc-800 dark:text-zinc-200" @click="goPay">
+        支付宝
+      </p>
     </div>
   </div>
 </template>

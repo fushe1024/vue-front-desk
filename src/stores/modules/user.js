@@ -4,6 +4,7 @@ import { userLogin, getUserInfo } from '@/api/sys'
 import { message } from '@/libs'
 import md5 from 'md5'
 import router from '@/router'
+import { LOGIN_CODE_QQ_LOGIN_NOT_REGISTER } from '@/constants'
 
 export const useUserStore = defineStore(
   'user',
@@ -19,17 +20,26 @@ export const useUserStore = defineStore(
     }
 
     // 登录逻辑
-    const login = async (data) => {
-      // 准备数据
-      const reqData = {
-        username: data.username,
-        password: md5(data.password),
-        loginType: 'username'
-      }
-      // 调用接口
-      const res = await userLogin(reqData)
-      token.value = res.token
+    const login = async (loginData) => {
+      const { password } = loginData
 
+      console.log('登录最终参数：', {
+        ...loginData,
+        password: password ? md5(password) : ''
+      })
+
+      // 调用接口
+      const res = await userLogin({
+        ...loginData,
+        password: password ? md5(password) : ''
+      })
+
+      // QQ 扫码登录，用户位注册
+      if (res.code === LOGIN_CODE_QQ_LOGIN_NOT_REGISTER) {
+        return res.code
+      }
+
+      token.value = res.token
       // 获取用户信息
       getUserData()
     }

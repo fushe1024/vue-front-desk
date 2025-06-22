@@ -65,3 +65,14 @@ export const OSS_BUCKET = 'imooc-front'
 
 // OSS Region
 export const OSS_REGION = 'oss-cn-beijing'
+
+// QQ 登录 URL
+export const QQ_LOGIN_URL =
+  'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&client_id=101998494&response_type=token&scope=all&redirect_uri=https%3A%2F%2Fimooc-front.lgdsunday.club%2Flogin'
+
+// QQ 登录未注册
+export const LOGIN_CODE_QQ_LOGIN_NOT_REGISTER = 204
+export const LOGIN_TYPE_QQ = 'QQ'
+
+// 微信登录
+export const LOGIN_TYPE_WX = 'WX'

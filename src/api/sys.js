@@ -29,3 +29,26 @@ export const updateUserInfo = (data) => request.put('/user/profile', data)
  * 获取上传凭证
  */
 export const getSts = () => request.get('/user/sts')
+
+/**
+ * 获取微信登录前置数据
+ */
+export const getWxLoginConfig = () => request.get('/sys/wxlogin/data')
+
+/**
+ * 获取微信登录 access_token
+ */
+export const getWxLoginAccessToken = (appid, secret, code) => {
+  return request.get('/sys/wxlogin/access_token', {
+    params: { appid, secret, code }
+  })
+}
+
+/**
+ * 获取微信用户信息
+ */
+export const getWxUserInfo = (accessToken, openid) => {
+  return request.get('/sys/wxlogin/userinfo', {
+    params: { accessToken, openid }
+  })
+}

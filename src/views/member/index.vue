@@ -17,9 +17,6 @@ const getVipPayListData = async () => {
   const res = await getVipPayList()
   vipPayListData.value = res
   currentPayData.value = vipPayListData.value[0] // 选中第一项
-
-  // 测试打印
-  console.log(vipPayListData.value)
 }
 getVipPayListData()
 

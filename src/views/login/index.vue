@@ -1,21 +1,25 @@
 <script setup>
 import sliderCaptcha from './components/slider-captcha.vue'
+import HeaderImg from '@/components/header-img/index.vue'
+import qqLogin from './components/qq-login.vue'
+import wchatLogin from './components/wchat-login.vue'
+import md5 from 'md5'
 import { ref, watch } from 'vue'
 import { message } from '@/libs'
-import HeaderImg from '@/components/header-img/index.vue'
 import { isMobileTerminal } from '@/utils/flexible'
 import { useUserStore } from '@/stores/modules/user'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { USER_AGREEMENT_URL, PRIVACY_POLICY_URL } from '@/constants'
 import { Field, Form, ErrorMessage } from 'vee-validate'
 import { validate } from './utils/from_validate'
 import { userRegister } from '@/api/sys'
-import md5 from 'md5'
+
 const userStore = useUserStore()
 const router = useRouter()
+const { query } = useRoute()
 
 // 是否注册
-const isRegister = ref(false)
+const isRegister = ref(true)
 
 // 用户名密码
 const userData = ref({
@@ -43,9 +47,14 @@ const loading = ref(false)
  */
 const login = () => {
   loading.value = true
+
   // 通知仓库登录
   userStore
-    .login(userData.value)
+    .login({
+      ...userData.value, // 用户名
+      ...query, // 路由参数
+      loginType: query.loginType || 'username' // 登录类型
+    })
     .then(() => {
       router.push('/') // 登录成功，跳转首页
     })
@@ -65,16 +74,21 @@ const register = () => {
     message({ type: 'warning', content: '请先同意协议' })
     return
   }
-  // 准备数据
-  const reqData = {
-    ...userData.value,
-    loginType: 'username',
-    password: md5(userData.value.password)
-  }
+
   loading.value = true
 
+  // 合并参数
+  const paramsData = {
+    ...userData.value, // 用户名密码
+    ...query, // 路由参数
+    password: md5(userData.value.password),
+    loginType: query.loginType || 'username' // 登录类型
+  }
+
+  console.log('注册最终参数：', paramsData)
+
   // 调用接口注册
-  userRegister(reqData)
+  userRegister(paramsData)
     .then(() => {
       message({ type: 'success', content: '注册成功，请登录' })
       isRegister.value = false
@@ -161,8 +175,8 @@ const onCaptchaSuccess = () => {
       </Form>
       <!-- 其他方式登录 -->
       <div class="flex justify-around">
-        <m-svg-icon class="w-4 cursor-pointer" icon-class="qq"></m-svg-icon>
-        <m-svg-icon class="w-4 cursor-pointer" icon-class="wexin"></m-svg-icon>
+        <qq-login />
+        <wchat-login />
       </div>
 
       <!-- 人类行为验证 -->

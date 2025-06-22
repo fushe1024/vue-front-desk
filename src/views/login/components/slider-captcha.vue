@@ -28,7 +28,7 @@ onMounted(() => {
     },
     // 用户拼图失败之后的回调
     onFail() {
-      console.log('onFail')
+      throw new Error('验证失败')
     },
     // 默认的验证方法，咱们不在此处进行验证，而是选择在用户拼图成功之后进行验证，所以此处永远返回为 true
     verify() {
