@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { alipay } from '@/utils/pay'
 
 const props = defineProps({
   disCount: {
@@ -19,8 +20,8 @@ const props = defineProps({
 const isDisCount = ref(true)
 
 // 去支付
-const goPay = () => {
-  console.log('currentPayData', props.currentPayData)
+const goPay = async () => {
+  await alipay(props.currentPayData.title, props.currentPayData.desc)
 }
 </script>
 

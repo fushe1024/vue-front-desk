@@ -73,7 +73,7 @@ export const useUserStore = defineStore(
       location.reload()
     }
 
-    return { token, userInfo, setUserInfo, login, logout }
+    return { token, userInfo, setUserInfo, getUserData, login, logout }
   },
   {
     persist: true

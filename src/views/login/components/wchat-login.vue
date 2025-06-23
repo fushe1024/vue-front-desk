@@ -9,6 +9,18 @@ import { oauthLogin } from '../utils/oauth'
 import { LOGIN_TYPE_WX } from '@/constants'
 
 /**
+ * 微信登录成功后窗口数据解析
+ */
+if (window.location.search) {
+  const code = /code=((.*))&state/.exec(window.location.search)[1]
+  if (code) {
+    postMessage({ code })
+  }
+  // 关闭微信登录窗口
+  window.close()
+}
+
+/**
  * 触发微信登录
  */
 const wechatLogin = async () => {
@@ -45,18 +57,6 @@ const wechatLogin = async () => {
       headimgurl
     })
   })
-}
-
-/**
- * 微信登录成功后窗口数据解析
- */
-if (window.location.search) {
-  const code = /code=((.*))&state/.exec(window.location.search)[1]
-  if (code) {
-    postMessage({ code })
-  }
-  // 关闭微信登录窗口
-  window.close()
 }
 </script>
 
